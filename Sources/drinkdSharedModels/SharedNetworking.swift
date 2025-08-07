@@ -45,7 +45,8 @@ public enum HTTP {
                 baseReq.httpBody = try JSONEncoder().encode(CreatePartyRequest(username: userName, userID: userID, restaurants_url: restaurantsUrl, partyName: partyName))
                 return baseReq
             } catch {
-                Log.networking.error("Error encoding JSON when creating a party - \(error)")
+                Log.logger.error("Error encoding JSON when creating a party - \(error)")
+
                 throw error
             }
 
@@ -57,7 +58,7 @@ public enum HTTP {
                 baseReq.httpBody = try JSONEncoder().encode(JoinPartyRequest(userID: userID, username: userName, partyCode: partyCode))
                 return baseReq
             } catch {
-                Log.networking.error("Error encoding JSON when joining a party - \(error)")
+                Log.logger.error("Error encoding JSON when joining a party - \(error)")
                 throw error
             }
         }
@@ -68,7 +69,7 @@ public enum HTTP {
                 baseReq.httpBody = try JSONEncoder().encode(LeavePartyRequest(userID: userID))
                 return baseReq
             } catch {
-                Log.networking.error("Error encoding JSON when leaving a party - \(error)")
+                Log.logger.error("Error encoding JSON when leaving a party - \(error)")
                 throw error
             }
         }
@@ -79,7 +80,7 @@ public enum HTTP {
                 baseReq.httpBody = try JSONEncoder().encode( SendMessageRequest(userID: userID, username: username, partyID: partyID, message: message) )
                 return baseReq
             } catch {
-                Log.networking.error("Error encoding JSON when sending a message - \(error)")
+                Log.logger.error("Error encoding JSON when sending a message - \(error)")
                 throw error
             }
         }
@@ -90,7 +91,7 @@ public enum HTTP {
                 baseReq.httpBody = try JSONEncoder().encode( UpdateRatingRequest(partyID: partyID, userID: userID, userName: userName, restaurantName: restaurantName, rating: rating, imageURL: imageuRL))
                 return baseReq
             } catch {
-                Log.networking.error("Error encoding JSON when updating a rating - \(error)")
+                Log.logger.error("Error encoding JSON when updating a rating - \(error)")
                 throw error
             }
         }
@@ -117,7 +118,7 @@ public enum HTTP {
                 components.queryItems = [URLQueryItem(name: "userID", value: userID)]
                 urlReq.url = components.url
             } else {
-                Log.networking.error("Unable to create URLComponents")
+                Log.logger.error("Unable to create URLComponents")
             }
             return urlReq
         }
@@ -129,7 +130,7 @@ public enum HTTP {
                 components.queryItems = [URLQueryItem(name: "partyID", value: partyID.uuidString)]
                 urlReq.url = components.url
             } else {
-                Log.networking.error("Unable to create URLComponents or PartyID")
+                Log.logger.error("Unable to create URLComponents or PartyID")
             }
 
             return urlReq
@@ -142,7 +143,7 @@ public enum HTTP {
                 components.queryItems = [URLQueryItem(name: "partyID", value: partyID.uuidString)]
                 urlReq.url = components.url
             } else {
-                Log.networking.error("Unable to create URLComponents or PartyID")
+                Log.logger.error("Unable to create URLComponents or PartyID")
             }
 
             return urlReq
