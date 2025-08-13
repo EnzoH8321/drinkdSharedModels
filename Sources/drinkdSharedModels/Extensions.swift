@@ -31,3 +31,11 @@ extension String {
         return outputFormatter.string(from: date)
     }
 }
+
+extension Date {
+    var monthDay: String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM/dd"
+        return formatter.string(from: self)
+    }
+}
