@@ -33,7 +33,7 @@ extension String {
 }
 
 extension Date {
-    var monthDay: String {
+    public var monthDay: String {
         let formatter = DateFormatter()
         formatter.dateFormat = "MM/dd"
         return formatter.string(from: self)
