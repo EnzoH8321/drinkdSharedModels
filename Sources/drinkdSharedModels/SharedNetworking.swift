@@ -20,7 +20,7 @@ public enum HTTP {
     case delete
 
     private var baseURLString: String {
-        #if DEBUG
+        #if DEVELOPMENT
             return "http://localhost:8080/"
         #else
             return "https://drinkdvaporserver.fly.dev/"

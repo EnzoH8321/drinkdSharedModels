@@ -25,6 +25,9 @@ let package = Package(
             name: "drinkdSharedModels",
             dependencies: [
                 .product(name: "Logging", package: "swift-log")
+            ],
+            swiftSettings: [
+                .define("DEVELOPMENT", .when(configuration: .debug))
             ]
         ),
         .testTarget(
