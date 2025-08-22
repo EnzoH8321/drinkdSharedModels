@@ -19,7 +19,15 @@ public enum HTTP {
     case post(PostRoutes)
     case delete
 
-    private var baseURLString: String { "https://drinkdvaporserver.fly.dev/" }
+    private var baseURLString: String {
+        #if DEBUG
+            return "http://localhost:8080/"
+        #else
+            return "https://drinkdvaporserver.fly.dev/"
+        #endif
+
+
+    }
 
     public enum PostRoutes: String, CaseIterable {
         case createParty
