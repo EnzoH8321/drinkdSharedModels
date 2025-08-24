@@ -110,6 +110,7 @@ public enum HTTP {
         case topRestaurants
         case rejoinParty
         case getMessages
+        case ratedRestaurants
 
         // Get Req
         private func buildGetReq(url: String) throws -> URLRequest {
@@ -149,6 +150,22 @@ public enum HTTP {
 
             if var components = URLComponents(string: url) {
                 components.queryItems = [URLQueryItem(name: "partyID", value: partyID.uuidString)]
+                urlReq.url = components.url
+            } else {
+                Log.logger.error("Unable to create URLComponents or PartyID")
+            }
+
+            return urlReq
+        }
+
+        public func ratedRestaurantsReq(userID: UUID, partyID: UUID, url: String) throws -> URLRequest {
+            var urlReq = try buildGetReq(url: url)
+
+            if var components = URLComponents(string: url) {
+                components.queryItems = [
+                    URLQueryItem(name: "userID", value: userID.uuidString),
+                    URLQueryItem(name: "partyID", value: partyID.uuidString)
+                ]
                 urlReq.url = components.url
             } else {
                 Log.logger.error("Unable to create URLComponents or PartyID")
