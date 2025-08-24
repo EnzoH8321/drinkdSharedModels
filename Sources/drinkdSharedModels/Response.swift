@@ -57,6 +57,14 @@ public struct TopRestaurantsGetResponse: Codable {
     }
 }
 
+public struct RatedRestaurantsGetResponse: Codable {
+    public let ratedRestaurants: [RatedRestaurantsTable]
+    
+    public init(ratedRestaurants: [RatedRestaurantsTable]) {
+        self.ratedRestaurants = ratedRestaurants
+    }
+}
+
 public struct MessagesGetResponse: Codable {
     public let messages: [MessagesTable]
 
