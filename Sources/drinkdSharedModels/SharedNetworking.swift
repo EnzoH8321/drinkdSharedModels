@@ -71,13 +71,14 @@ public enum HTTP {
 
             /// Build URL with query parameters
             guard var components = URLComponents(string: url) else {
-                throw ClientNetworkErrors.invalidURLError
+                throw SharedErrors.general(error: .generalError("Unable to construct valid URLComponents"))
+
             }
 
             components.queryItems = queryItems
 
             guard let finalURL = components.url else {
-                throw ClientNetworkErrors.invalidURLError
+                throw SharedErrors.general(error: .generalError("Unable to retrieve a valid URL"))
             }
 
             /// Create GET request
@@ -165,7 +166,7 @@ public enum HTTP {
 
         // Post Req
         private func buildPostReq(url: String) throws -> URLRequest {
-            guard let url = URL(string: url) else { throw ClientNetworkErrors.invalidURLError }
+            guard let url = URL(string: url) else { throw SharedErrors.general(error: .generalError("Unable to create a valid URL"))}
             var urlRequest = URLRequest(url: url)
 
             urlRequest.httpMethod = "POST"
