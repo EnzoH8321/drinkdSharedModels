@@ -16,20 +16,6 @@ extension String {
         return formatter.date(from: self)
     }
 
-    public func convertToMonthDay() -> String? {
-        let isoFormatter = ISO8601DateFormatter()
-        // Remove .withFractionalSeconds since your string doesn't have them
-        isoFormatter.formatOptions = [.withInternetDateTime]
-
-        guard let date = isoFormatter.date(from: self) else {
-            return nil
-        }
-
-        let outputFormatter = DateFormatter()
-        outputFormatter.dateFormat = "MM/dd"
-
-        return outputFormatter.string(from: date)
-    }
 }
 
 extension Date {

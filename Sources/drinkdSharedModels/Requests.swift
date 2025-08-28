@@ -8,14 +8,6 @@ import Foundation
 
 // For Client -> Vapor Server & vice versa
 
-public enum PostRequestTypes {
-    case createParty
-    case joinParty
-    case leaveParty
-    case sendMessage
-    case updateRating
-}
-
 public protocol PartyRequest {
     var userID: UUID { get }
 }
