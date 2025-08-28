@@ -11,9 +11,7 @@ public enum SharedErrors: Codable, LocalizedError {
 
     case supabase(error: SupaBase)
     case general(error: General)
-    case yelp(error: Yelp)
     case internalServerError(error: String)
-
 
     public enum SupaBase: String, LocalizedError, Codable {
 
@@ -52,20 +50,6 @@ public enum SharedErrors: Codable, LocalizedError {
 
     }
 
-    public enum Yelp: LocalizedError, Codable {
-        case missingProperty(String)
-        case invalidHTTPStatus(String)
-
-        public var errorDescription: String? {
-            switch self {
-            case .missingProperty(let string):
-                return "missingProperty error - \(string)"
-            case .invalidHTTPStatus(let string):
-                return "invalidHTTPStatus error - \(string)"
-            }
-        }
-    }
-
     public var errorDescription: String? {
         switch self {
         case .supabase(let error):
@@ -74,10 +58,7 @@ public enum SharedErrors: Codable, LocalizedError {
             return error.localizedDescription
         case .internalServerError(let error):
             return error
-        case .yelp(error: let error):
-            return error.localizedDescription
         }
-
 
     }
 
@@ -105,7 +86,7 @@ public struct ErrorWrapper: Codable {
     public let error: SharedErrors
 
     public init(errorType: some Error) {
-        print("‼️ ERROR - \(errorType)")
+
         switch errorType {
         case let errorType as SharedErrors.SupaBase:
 
