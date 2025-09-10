@@ -32,8 +32,8 @@ struct SharedNetworkingTests {
 #endif
     }
 
-    @Test("PostRoute.fullURLString with the debug baseURLString")
-    func postRoutesFullURLString_Debug_Test() async throws {
+    @Test("PostRoute.fullURLString")
+    func postRoutesFullURLString_Test() async throws {
 
         let createParty = HTTP.PostRoutes.createParty
         let joinParty = HTTP.PostRoutes.joinParty
@@ -48,8 +48,8 @@ struct SharedNetworkingTests {
         #expect(updateRating.fullURLString == "\(url)\(updateRating.rawValue)")
     }
 
-    @Test("GetRoute.fullURLString with the debug baseURLString")
-    func getRoutesFullURLString_Debug_Test() async throws {
+    @Test("GetRoute.fullURLString")
+    func getRoutesFullURLString_Test() async throws {
 
         let topRestaurants = HTTP.GetRoutes.topRestaurants
         let rejoinParty = HTTP.GetRoutes.rejoinParty
@@ -69,7 +69,7 @@ struct SharedNetworkingTests {
         HTTP.GetReq.getMessages(partyID: SharedNetworkingTests.partyUUID),
         HTTP.GetReq.ratedRestaurants(userID: SharedNetworkingTests.userID, partyID: SharedNetworkingTests.partyUUID)
     ])
-    func getReq_createReq_Debug_Test(getReq: HTTP.GetReq) {
+    func getReq_createReq_Test(getReq: HTTP.GetReq) {
 
         do {
             switch getReq {
@@ -114,7 +114,7 @@ struct SharedNetworkingTests {
         HTTP.GetReq.getMessages(partyID: SharedNetworkingTests.partyUUID),
         HTTP.GetReq.ratedRestaurants(userID: SharedNetworkingTests.userID, partyID: SharedNetworkingTests.partyUUID)
     ])
-    func getReq_urlComponents_Debug_Test(_ getReq: HTTP.GetReq) async throws {
+    func getReq_urlComponents_Test(_ getReq: HTTP.GetReq) async throws {
 
         switch getReq {
         case .topRestaurants(let partyID):
@@ -148,7 +148,7 @@ struct SharedNetworkingTests {
         HTTP.PostReq.updateRating(partyID: SharedNetworkingTests.partyUUID, userName: SharedNetworkingTests.username, userID: SharedNetworkingTests.userID, restaurantName: SharedNetworkingTests.restaurantName, rating: SharedNetworkingTests.ratingTwo, imageuRL: SharedNetworkingTests.imageURL)
 
     ])
-    func postReq_createReq_Debug_Test(_ postReq: HTTP.PostReq) async throws {
+    func postReq_createReq_Test(_ postReq: HTTP.PostReq) async throws {
 
         do {
             switch postReq {
