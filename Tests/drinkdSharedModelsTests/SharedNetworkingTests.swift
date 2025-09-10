@@ -11,7 +11,6 @@ import Foundation
 @Suite("SharedNetworkingTests")
 struct SharedNetworkingTests {
 
-    private let devURL = "http://localhost:8080/"
     private static let partyUUID = UUID(uuidString: "123e4567-e89b-12d3-a456-426655440000")!
     private static let userID = UUID(uuidString: "341e4567-e83b-12d3-b456-426655440000")!
     private static let username = "Test007"
@@ -23,7 +22,15 @@ struct SharedNetworkingTests {
     private static let ratingTwo = 2
     private static let imageURL = "https://s3-media0.fl.yelpcdn.com/bphoto/7ZZWfVWBuAEq0v0AOfOksA/o.jpg"
 
-    #if DEBUG
+    private var url: String {
+        let devURL = "http://localhost:8080/"
+        let productionURL = "https://drinkdvaporserver.fly.dev/"
+#if DEBUG
+        return devURL
+#else
+        return productionURL
+#endif
+    }
 
     @Test("PostRoute.fullURLString with the debug baseURLString")
     func postRoutesFullURLString_Debug_Test() async throws {
@@ -34,11 +41,11 @@ struct SharedNetworkingTests {
         let sendMessage = HTTP.PostRoutes.sendMessage
         let updateRating = HTTP.PostRoutes.updateRating
 
-        #expect(createParty.fullURLString == "\(devURL)\(createParty.rawValue)")
-        #expect(joinParty.fullURLString == "\(devURL)\(joinParty.rawValue)")
-        #expect(leaveParty.fullURLString == "\(devURL)\(leaveParty.rawValue)")
-        #expect(sendMessage.fullURLString == "\(devURL)\(sendMessage.rawValue)")
-        #expect(updateRating.fullURLString == "\(devURL)\(updateRating.rawValue)")
+        #expect(createParty.fullURLString == "\(url)\(createParty.rawValue)")
+        #expect(joinParty.fullURLString == "\(url)\(joinParty.rawValue)")
+        #expect(leaveParty.fullURLString == "\(url)\(leaveParty.rawValue)")
+        #expect(sendMessage.fullURLString == "\(url)\(sendMessage.rawValue)")
+        #expect(updateRating.fullURLString == "\(url)\(updateRating.rawValue)")
     }
 
     @Test("GetRoute.fullURLString with the debug baseURLString")
@@ -49,10 +56,10 @@ struct SharedNetworkingTests {
         let getMessages = HTTP.GetRoutes.getMessages
         let ratedRestaurants = HTTP.GetRoutes.ratedRestaurants
 
-        #expect(topRestaurants.fullURLString == "\(devURL)\(topRestaurants.rawValue)")
-        #expect(rejoinParty.fullURLString == "\(devURL)\(rejoinParty.rawValue)")
-        #expect(getMessages.fullURLString == "\(devURL)\(getMessages.rawValue)")
-        #expect(ratedRestaurants.fullURLString == "\(devURL)\(ratedRestaurants.rawValue)")
+        #expect(topRestaurants.fullURLString == "\(url)\(topRestaurants.rawValue)")
+        #expect(rejoinParty.fullURLString == "\(url)\(rejoinParty.rawValue)")
+        #expect(getMessages.fullURLString == "\(url)\(getMessages.rawValue)")
+        #expect(ratedRestaurants.fullURLString == "\(url)\(ratedRestaurants.rawValue)")
     }
 
 
@@ -69,28 +76,28 @@ struct SharedNetworkingTests {
 
             case .topRestaurants(partyID: let partyID):
                 let rawVal = HTTP.GetRoutes.topRestaurants.rawValue
-                let urlString = "\(devURL)\(rawVal)?partyID=\(partyID.uuidString)"
+                let urlString = "\(url)\(rawVal)?partyID=\(partyID.uuidString)"
                 let req = try HTTP.GetReq.topRestaurants(partyID: partyID).createReq()
 
                 #expect(req.httpMethod == "GET")
                 #expect(req.url?.absoluteString == urlString)
             case .rejoinParty(userID: let userID):
                 let rawVal = HTTP.GetRoutes.rejoinParty.rawValue
-                let rejoinPartyURLString = "\(devURL)\(rawVal)?userID=\(userID)"
+                let rejoinPartyURLString = "\(url)\(rawVal)?userID=\(userID)"
                 let rejoinPartyReq = try HTTP.GetReq.rejoinParty(userID: SharedNetworkingTests.userID.uuidString).createReq()
 
                 #expect(rejoinPartyReq.httpMethod == "GET")
                 #expect(rejoinPartyReq.url?.absoluteString == rejoinPartyURLString)
             case .getMessages(partyID: let partyID):
                 let getMessagesRawVal = HTTP.GetRoutes.getMessages.rawValue
-                let getMessagesURLString = "\(devURL)\(getMessagesRawVal)?partyID=\(partyID.uuidString)"
+                let getMessagesURLString = "\(url)\(getMessagesRawVal)?partyID=\(partyID.uuidString)"
                 let getMessagesPartyReq = try HTTP.GetReq.getMessages(partyID: partyID).createReq()
 
                 #expect(getMessagesPartyReq.httpMethod == "GET")
                 #expect(getMessagesPartyReq.url?.absoluteString == getMessagesURLString)
             case .ratedRestaurants(userID: let userID, partyID: let partyID):
                 let ratedRestaurantsRawVal = HTTP.GetRoutes.ratedRestaurants.rawValue
-                let ratedRestaurantsURLString = "\(devURL)\(ratedRestaurantsRawVal)?userID=\(userID.uuidString)&partyID=\(partyID.uuidString)"
+                let ratedRestaurantsURLString = "\(url)\(ratedRestaurantsRawVal)?userID=\(userID.uuidString)&partyID=\(partyID.uuidString)"
                 let ratedRestaurantsPartyReq = try HTTP.GetReq.ratedRestaurants(userID: userID, partyID: partyID).createReq()
 
                 #expect(ratedRestaurantsPartyReq.httpMethod == "GET")
@@ -195,22 +202,4 @@ struct SharedNetworkingTests {
 
     }
 
-
-    #else
-    @Test("Test PostRoute fullURLString with the release baseURLString")
-    func postRoutesFullURLString_Release_Test() async throws {
-        let releaseURL = "https://drinkdvaporserver.fly.dev/"
-        let createParty = HTTP.PostRoutes.createParty
-        let joinParty = HTTP.PostRoutes.joinParty
-        let leaveParty = HTTP.PostRoutes.leaveParty
-        let sendMessage = HTTP.PostRoutes.sendMessage
-        let updateRating = HTTP.PostRoutes.updateRating
-        // Write your test here and use APIs like `#expect(...)` to check expected conditions.
-        #expect(createParty.fullURLString == "\(releaseURL)\(createParty.rawValue)")
-        #expect(joinParty.fullURLString == "\(releaseURL)\(joinParty.rawValue)")
-        #expect(leaveParty.fullURLString == "\(releaseURL)\(leaveParty.rawValue)")
-        #expect(sendMessage.fullURLString == "\(releaseURL)\(sendMessage.rawValue)")
-        #expect(updateRating.fullURLString == "\(releaseURL)\(updateRating.rawValue)")
-    }
-    #endif
 }
