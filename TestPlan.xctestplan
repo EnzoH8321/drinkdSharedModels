@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "DCBBED25-88F9-4119-B037-E33D6764563D",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "testTimeoutsEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "drinkdSharedModelsTests",
+        "name" : "drinkdSharedModelsTests"
+      }
+    }
+  ],
+  "version" : 1
+}

@@ -25,7 +25,7 @@ struct SharedNetworkingTests {
 
     #if DEBUG
 
-    @Test("Test PostRoute fullURLString with the debug baseURLString")
+    @Test("Test PostRoute.fullURLString with the debug baseURLString")
     func postRoutesFullURLString_Debug_Test() async throws {
 
         let createParty = HTTP.PostRoutes.createParty
@@ -41,7 +41,7 @@ struct SharedNetworkingTests {
         #expect(updateRating.fullURLString == "\(devURL)\(updateRating.rawValue)")
     }
 
-    @Test("Test GetRoute fullURLString with the debug baseURLString")
+    @Test("Test GetRoute.fullURLString with the debug baseURLString")
     func getRoutesFullURLString_Debug_Test() async throws {
 
         let topRestaurants = HTTP.GetRoutes.topRestaurants
