@@ -25,7 +25,7 @@ struct SharedNetworkingTests {
 
     #if DEBUG
 
-    @Test("Test PostRoute.fullURLString with the debug baseURLString")
+    @Test("PostRoute.fullURLString with the debug baseURLString")
     func postRoutesFullURLString_Debug_Test() async throws {
 
         let createParty = HTTP.PostRoutes.createParty
@@ -41,7 +41,7 @@ struct SharedNetworkingTests {
         #expect(updateRating.fullURLString == "\(devURL)\(updateRating.rawValue)")
     }
 
-    @Test("Test GetRoute.fullURLString with the debug baseURLString")
+    @Test("GetRoute.fullURLString with the debug baseURLString")
     func getRoutesFullURLString_Debug_Test() async throws {
 
         let topRestaurants = HTTP.GetRoutes.topRestaurants
@@ -56,7 +56,7 @@ struct SharedNetworkingTests {
     }
 
 
-    @Test("Test GetReq.createReq", arguments: [
+    @Test("GetReq.createReq", arguments: [
         HTTP.GetReq.topRestaurants(partyID: SharedNetworkingTests.partyUUID),
         HTTP.GetReq.rejoinParty(userID: SharedNetworkingTests.userID.uuidString),
         HTTP.GetReq.getMessages(partyID: SharedNetworkingTests.partyUUID),
@@ -101,7 +101,7 @@ struct SharedNetworkingTests {
         }
     }
 
-    @Test("Test GetReq.urlComponents", arguments: [
+    @Test("GetReq.urlComponents", arguments: [
         HTTP.GetReq.topRestaurants(partyID: SharedNetworkingTests.partyUUID),
         HTTP.GetReq.rejoinParty(userID: SharedNetworkingTests.userID.uuidString),
         HTTP.GetReq.getMessages(partyID: SharedNetworkingTests.partyUUID),
@@ -133,7 +133,7 @@ struct SharedNetworkingTests {
 
     }
 
-    @Test("Test PostReq.createReq", arguments: [
+    @Test("PostReq.createReq", arguments: [
         HTTP.PostReq.createParty(userID: SharedNetworkingTests.userID, userName: SharedNetworkingTests.username, restaurantsUrl: SharedNetworkingTests.restaurantsURL, partyName: SharedNetworkingTests.partyName),
         HTTP.PostReq.joinParty(userID: SharedNetworkingTests.userID, partyCode: SharedNetworkingTests.partyCode, userName: SharedNetworkingTests.username),
         HTTP.PostReq.leaveParty(userID: SharedNetworkingTests.userID),

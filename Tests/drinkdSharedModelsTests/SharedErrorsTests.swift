@@ -10,7 +10,7 @@ import Testing
 
 struct SharedErrorsTests {
 
-    @Test("Test SharedErrors.errorDescription", arguments: [
+    @Test("errorDescription for SharedErrors", arguments: [
         SharedErrors.supabase(error: .dataNotFound),
         SharedErrors.general(error: .generalError("General Error")),
         SharedErrors.internalServerError(error: "Server Error")
@@ -29,7 +29,7 @@ struct SharedErrorsTests {
         }
     }
 
-    @Test("Test SharedErrors.General.errorDescription", arguments: [
+    @Test("errorDescription for SharedErrors.General", arguments: [
         SharedErrors.General.missingValue("Missing Value"),
         SharedErrors.General.castingError("Casting Error"),
         SharedErrors.General.generalError("General Error")

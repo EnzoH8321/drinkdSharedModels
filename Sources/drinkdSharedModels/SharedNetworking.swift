@@ -55,7 +55,7 @@ public enum HTTP {
         }
     }
 
-    public enum GetReq: URLRequestProtocol {
+    public enum GetReq: URLRequestProtocol, Sendable {
 
         case topRestaurants(partyID: UUID)
         case rejoinParty(userID: String)
@@ -108,7 +108,7 @@ public enum HTTP {
         }
     }
 
-    public enum PostReq: URLRequestProtocol {
+    public enum PostReq: URLRequestProtocol, Sendable {
 
         case createParty(userID: UUID, userName: String, restaurantsUrl: String, partyName: String)
         case joinParty(userID: UUID, partyCode: Int, userName: String)

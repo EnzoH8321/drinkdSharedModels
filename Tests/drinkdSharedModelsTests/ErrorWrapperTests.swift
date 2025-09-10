@@ -10,7 +10,7 @@ import Testing
 
 struct ErrorWrapperTests {
 
-    @Test("Test initialization of ErrorWrapper", arguments: [
+    @Test("initialization with SharedErrors.SupaBase", arguments: [
         SharedErrors.SupaBase.invalidPartyCode,
         SharedErrors.SupaBase.partyLeaderCannotJoinAParty ,
         SharedErrors.SupaBase.userIsAlreadyInAParty ,
