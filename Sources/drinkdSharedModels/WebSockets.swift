@@ -15,12 +15,14 @@ public struct WSMessage: Codable, Hashable, Identifiable {
     public let username: String
     public let timestamp: Date
     public let userID: UUID
+    public let partyID: UUID
 
-    public init(id: UUID, text: String, username: String, timestamp: Date, userID: UUID) {
+    public init(id: UUID, text: String, username: String, timestamp: Date, userID: UUID, partyID: UUID) {
         self.text = text
         self.username = username
         self.timestamp = timestamp
         self.userID = userID
         self.id = id
+        self.partyID = partyID
     }
 }
