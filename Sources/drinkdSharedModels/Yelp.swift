@@ -9,99 +9,99 @@ import Foundation
 
 //Main Query
 public struct YelpApiBusinessSearch: Codable {
-    let businesses: [YelpApiBusinessSearchProperties]?
+    public let businesses: [YelpApiBusinessSearchProperties]?
 }
 
 //Business Search
 public struct YelpApiBusinessSearchProperties: Codable, Hashable {
-    let id: String?
-    let alias: String?
-    let name: String?
-    let image_url: String?
-    let is_closed: Bool?
-    let url: String?
-    let review_count: Int?
-    let categories: [YelpApiBusinessDetails_Categories]?
-    let rating: Double?
-    let coordinates: YelpApiBusinessDetails_Coordinates?
-    let transactions: [String]?
-    let price: String?
-    let location: YelpApiBusinessDetails_Location?
-    let phone: String?
-    let display_phone: String?
-    let distance: Double?
+    public let id: String?
+    public let alias: String?
+    public let name: String?
+    public let image_url: String?
+    public let is_closed: Bool?
+    public let url: String?
+    public let review_count: Int?
+    public let categories: [YelpApiBusinessDetails_Categories]?
+    public let rating: Double?
+    public let coordinates: YelpApiBusinessDetails_Coordinates?
+    public let transactions: [String]?
+    public let price: String?
+    public let location: YelpApiBusinessDetails_Location?
+    public let phone: String?
+    public let display_phone: String?
+    public let distance: Double?
     //Custom Properties, not from API
 //    var imageData: Data?
-    var pickUpAvailable: Bool?
-    var deliveryAvailable: Bool?
-    var reservationAvailable: Bool?
+    public var pickUpAvailable: Bool?
+    public var deliveryAvailable: Bool?
+    public var reservationAvailable: Bool?
 }
 
 
 //Business Details
 public struct YelpApiBusinessDetails: Codable {
-    let id: String?
-    let alias: String?
-    let name: String?
-    let image_url: String?
-    let is_claimed: Bool?
-    let is_closed: Bool?
-    let url: String?
-    let phone: String?
-    let display_phone: String?
-    let review_count: Int?
-    let categories: [YelpApiBusinessDetails_Categories]?
-    let rating: Double?
-    let location: YelpApiBusinessDetails_Location?
-    let coordinates: YelpApiBusinessDetails_Coordinates?
-    let photos: [String]?
-    let price: String?
-    let hours: [YelpApiBusinessDetails_Hours]?
-    let transactions: [String]?
-    let special_hours: [YelpApiBusinessDetails_SpecialHours]?
+    public let id: String?
+    public let alias: String?
+    public let name: String?
+    public let image_url: String?
+    public let is_claimed: Bool?
+    public let is_closed: Bool?
+    public let url: String?
+    public let phone: String?
+    public let display_phone: String?
+    public let review_count: Int?
+    public let categories: [YelpApiBusinessDetails_Categories]?
+    public let rating: Double?
+    public let location: YelpApiBusinessDetails_Location?
+    public let coordinates: YelpApiBusinessDetails_Coordinates?
+    public let photos: [String]?
+    public let price: String?
+    public let hours: [YelpApiBusinessDetails_Hours]?
+    public let transactions: [String]?
+    public let special_hours: [YelpApiBusinessDetails_SpecialHours]?
 }
 
 public struct YelpApiBusinessDetails_Categories: Codable, Hashable {
-    let alias: String?
-    let title: String?
+    public let alias: String?
+    public let title: String?
 }
 
 public struct YelpApiBusinessDetails_Location: Codable, Hashable {
-    let address1: String?
-    let address2: String?
-    let address3: String?
-    let city: String?
-    let zip_code: String?
-    let country: String?
-    let state: String?
-    let display_address: [String]?
-    let cross_streets: String?
+    public let address1: String?
+    public let address2: String?
+    public let address3: String?
+    public let city: String?
+    public let zip_code: String?
+    public let country: String?
+    public let state: String?
+    public let display_address: [String]?
+    public let cross_streets: String?
 }
 
 public struct YelpApiBusinessDetails_Coordinates: Codable, Hashable {
-    let latitude: Double?
-    let longitude: Double?
+    public let latitude: Double?
+    public let longitude: Double?
 }
 
 public struct YelpApiBusinessDetails_Hours: Codable {
-    let open: [YelpApiBusinessDetails_Hours_Open]?
-    let hours_type: String?
-    let is_open_now: Bool?
+    public let open: [YelpApiBusinessDetails_Hours_Open]?
+    public let hours_type: String?
+    public let is_open_now: Bool?
 }
 
 public struct YelpApiBusinessDetails_Hours_Open: Codable {
-    let is_overnight: Bool?
-    let start: String?
-    let end: String?
-    let day: Int?
+    public let is_overnight: Bool?
+    public let start: String?
+    public let end: String?
+    public let day: Int?
 }
 
 public struct YelpApiBusinessDetails_SpecialHours: Codable {
-    let date: String?
-    let is_closed: Bool?
-    let start: String?
-    let end: String?
-    let is_overnight: Bool?
+    public let date: String?
+    public let is_closed: Bool?
+    public let start: String?
+    public let end: String?
+    public let is_overnight: Bool?
 }
 
 
