@@ -49,6 +49,7 @@ public enum HTTP {
         case rejoinParty
         case getMessages
         case ratedRestaurants
+        case yelpRestaurants
 
         var fullURLString: String {
             return baseURLString + self.rawValue
@@ -61,6 +62,7 @@ public enum HTTP {
         case rejoinParty(userID: String)
         case getMessages(partyID: UUID)
         case ratedRestaurants(userID: UUID, partyID: UUID)
+        case yelpRestaurants(yelpURL: String)
 
         /// Creates GET request with appropriate query parameters
         /// - Returns: Configured URLRequest
@@ -104,6 +106,8 @@ public enum HTTP {
                     URLQueryItem(name: "userID", value: userID.uuidString),
                     URLQueryItem(name: "partyID", value: partyID.uuidString)
                 ])
+            case .yelpRestaurants(yelpURL: let yelpURL):
+                return (HTTP.GetRoutes.yelpRestaurants.fullURLString, [URLQueryItem(name: "yelpURL", value: yelpURL)])
             }
         }
     }
