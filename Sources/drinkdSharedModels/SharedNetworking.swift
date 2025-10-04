@@ -25,11 +25,15 @@ protocol RoutesProtocol {
 public enum HTTP {
 
     private static var baseURLString: String {
-#if DEVELOPMENT
-        return "http://localhost:8080/"
+
+#if STAGING
+        return  "https://drinkdvaporserver-hvpnq.fly.dev/"
+#elseif DEVELOPMENT
+        return  "http://localhost:8080/"
 #else
         return "https://drinkdvaporserver.fly.dev/"
 #endif
+
     }
 
     public enum PostRoutes: String, CaseIterable, RoutesProtocol {

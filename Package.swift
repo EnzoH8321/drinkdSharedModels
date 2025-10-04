@@ -27,7 +27,8 @@ let package = Package(
                 .product(name: "Logging", package: "swift-log")
             ],
             swiftSettings: [
-                .define("DEVELOPMENT", .when(configuration: .debug))
+                .define("DEVELOPMENT", .when(configuration: .debug)),
+                .define("STAGING")
             ]
         ),
         .testTarget(
