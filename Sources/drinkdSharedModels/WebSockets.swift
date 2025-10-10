@@ -9,7 +9,7 @@ import Foundation
 import FoundationNetworking
 #endif
 
-public struct WSMessage: Codable, Hashable, Identifiable {
+public struct WSMessage: Codable, Hashable, Identifiable, Sendable {
     public let id: UUID
     public let text: String
     public let username: String
