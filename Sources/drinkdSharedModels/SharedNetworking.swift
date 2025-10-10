@@ -158,15 +158,15 @@ public enum HTTP {
 
         private func errorMessage(_ error: Error) -> String {
             switch self {
-            case .createParty(let userID, let userName, let restaurantsUrl, let partyName):
+            case .createParty(_, _, _, _):
                 return "Error encoding JSON when creating a party - \(error)"
-            case .joinParty(let userID, let partyCode, let userName):
+            case .joinParty(_, _, _):
                 return "Error encoding JSON when joining a party - \(error)"
-            case .leaveParty(let userID):
+            case .leaveParty(_):
                 return "Error encoding JSON when leaving a party - \(error)"
-            case .sendMessage(let userID, let username, let message, let partyID):
+            case .sendMessage(_, _, _, _):
                 return "Error encoding JSON when sending a message - \(error)"
-            case .updateRating(let partyID, let userName, let userID, let restaurantName, let rating, let imageuRL):
+            case .updateRating(_, _, _, _, _, _):
                 return "Error encoding JSON when updating a rating - \(error)"
             }
 
