@@ -28,7 +28,6 @@ let package = Package(
             ],
             swiftSettings: [
                 .define("DEVELOPMENT", .when(configuration: .debug)),
-                .define("STAGING")
             ]
         ),
         .testTarget(
