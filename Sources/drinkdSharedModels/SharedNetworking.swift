@@ -27,10 +27,13 @@ public enum HTTP {
     private static var baseURLString: String {
 
 #if STAGING
+        print("⚠️ STAGING flag is defined")
         return  "https://drinkdvaporserver-hvpnq.fly.dev/"
 #elseif DEVELOPMENT
+        print("⚠️ DEVELOPMENT flag is defined")
         return  "http://localhost:8080/"
 #else
+        print("✅ No flags defined - using production")
         return "https://drinkdvaporserver.fly.dev/"
 #endif
 
