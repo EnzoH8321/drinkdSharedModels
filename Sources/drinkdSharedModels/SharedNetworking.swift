@@ -15,26 +15,14 @@ public final class SharedNetworking {
 }
 
 protocol URLRequestProtocol {
-    func createReq() throws -> URLRequest
+    func createReq(baseURL: String) throws -> URLRequest
 }
 
 protocol RoutesProtocol {
-    var fullURLString: String { get }
+    func fullServerURL(baseURL: String) -> String
 }
 
 public enum HTTP {
-
-    private static var baseURLString: String {
-
-#if STAGING
-        return  "https://drinkdvaporserver-hvpnq.fly.dev/"
-#elseif DEVELOPMENT
-        return  "http://localhost:8080/"
-#else
-        return "https://drinkdvaporserver.fly.dev/"
-#endif
-
-    }
 
     public enum PostRoutes: String, CaseIterable, RoutesProtocol {
         case createParty
@@ -43,8 +31,8 @@ public enum HTTP {
         case sendMessage
         case updateRating
 
-        var fullURLString: String {
-            return baseURLString + self.rawValue
+        func fullServerURL(baseURL: String) -> String {
+            return baseURL + self.rawValue
         }
     }
 
@@ -55,8 +43,8 @@ public enum HTTP {
         case ratedRestaurants
         case yelpRestaurants
 
-        var fullURLString: String {
-            return baseURLString + self.rawValue
+        func fullServerURL(baseURL: String) -> String {
+            return baseURL + self.rawValue
         }
     }
 
@@ -71,9 +59,9 @@ public enum HTTP {
         /// Creates GET request with appropriate query parameters
         /// - Returns: Configured URLRequest
         /// - Throws: ClientNetworkErrors.invalidURLError if URL is invalid
-        public func createReq() throws -> URLRequest {
+        public func createReq(baseURL: String) throws -> URLRequest {
             /// Extract URL and query items based on case
-            let (url, queryItems) = urlComponents
+            let (url, queryItems) = urlComponents(baseURL: baseURL)
 
             /// Build URL with query parameters
             guard var components = URLComponents(string: url) else {
@@ -94,24 +82,24 @@ public enum HTTP {
         }
 
         /// Extracts URL and query items for each case
-        public var urlComponents: (url: String, queryItems: [URLQueryItem]) {
+        private func urlComponents(baseURL: String) -> (url: String, queryItems: [URLQueryItem]) {
             switch self {
             case .topRestaurants(let partyID):
-                return (HTTP.GetRoutes.topRestaurants.fullURLString, [URLQueryItem(name: "partyID", value: partyID.uuidString)])
+                return (HTTP.GetRoutes.topRestaurants.fullServerURL(baseURL: baseURL), [URLQueryItem(name: "partyID", value: partyID.uuidString)])
 
             case .rejoinParty(let userID):
-                return (HTTP.GetRoutes.rejoinParty.fullURLString, [URLQueryItem(name: "userID", value: userID)])
+                return (HTTP.GetRoutes.rejoinParty.fullServerURL(baseURL: baseURL), [URLQueryItem(name: "userID", value: userID)])
 
             case .getMessages(let partyID):
-                return (HTTP.GetRoutes.getMessages.fullURLString, [URLQueryItem(name: "partyID", value: partyID.uuidString)])
+                return (HTTP.GetRoutes.getMessages.fullServerURL(baseURL: baseURL), [URLQueryItem(name: "partyID", value: partyID.uuidString)])
 
             case .ratedRestaurants(let userID, let partyID):
-                return (HTTP.GetRoutes.ratedRestaurants.fullURLString, [
+                return (HTTP.GetRoutes.ratedRestaurants.fullServerURL(baseURL: baseURL), [
                     URLQueryItem(name: "userID", value: userID.uuidString),
                     URLQueryItem(name: "partyID", value: partyID.uuidString)
                 ])
             case .yelpRestaurants(yelpURL: let yelpURL):
-                return (HTTP.GetRoutes.yelpRestaurants.fullURLString, [URLQueryItem(name: "yelpURL", value: yelpURL)])
+                return (HTTP.GetRoutes.yelpRestaurants.fullServerURL(baseURL: baseURL), [URLQueryItem(name: "yelpURL", value: yelpURL)])
             }
         }
     }
@@ -124,7 +112,7 @@ public enum HTTP {
         case sendMessage(userID: UUID, username: String, message: String, partyID: UUID)
         case updateRating(partyID: UUID,  userName: String ,  userID: UUID,  restaurantName: String, rating: Int,  imageuRL: String)
 
-        public func createReq() throws -> URLRequest {
+        public func createReq(baseURL: String) throws -> URLRequest {
 
             let (endpoint, requestBody): (PostRoutes, Encodable) = switch self {
             case .createParty(let userID, let userName, let restaurantsUrl, let partyName):
@@ -145,7 +133,7 @@ public enum HTTP {
 
             do {
                 /// Build request with JSON body
-                var request = try buildPostReq(url: endpoint.fullURLString)
+                var request = try buildPostReq(url: endpoint.fullServerURL(baseURL: baseURL))
                 request.httpBody = try JSONEncoder().encode(requestBody)
                 return request
             } catch {
